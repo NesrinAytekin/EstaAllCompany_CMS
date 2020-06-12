@@ -47,6 +47,12 @@ namespace EstaAllCompany_CMS
 
             app.UseEndpoints(endpoints =>
             {
+                //Bu kýsmý eklemek zorundayýz aksi halde rotasýný bulup istenilen URL'i bulamaz.
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

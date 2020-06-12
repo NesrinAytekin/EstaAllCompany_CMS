@@ -19,15 +19,13 @@ namespace EstaAllCompany_CMS.Infrastructure.Entities
         public string LastName { get; set; }
 
         [Required]
-        [MaxLength(10, ErrorMessage = "Maximum Length is 10")]
+        [MinLength(2, ErrorMessage = "Minumum Length is 2")]
         public string UserName { get; set; }
 
-        [Required]
-        [MaxLength(50, ErrorMessage = "Maximum Length is 50")]
+        [Required, EmailAddress]
         public string Email { get; set; }
 
-        [Required]
-        [MaxLength(10, ErrorMessage = "Maximum Length is 10")]
+        [DataType(DataType.Password), Required, MinLength(4, ErrorMessage = "Minumum Length is 4 ")]
         public string Password { get; set; }
 
     }
