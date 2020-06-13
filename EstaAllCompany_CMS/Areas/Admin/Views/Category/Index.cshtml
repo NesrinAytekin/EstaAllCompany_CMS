@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+@model IEnumerable<Category>
+
+<div class="row mt-2">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>List of Categories</h4>
+            </div>
+            <div class="card-body">
+                <table class="table sorting" id="categories">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Slug</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="id_@item.Id">
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                <td>@item.Slug</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>|
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Details</a>|
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <a asp-action="Create" class="btn btn-block btn-sm btn-dark">Create new one</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+    $("table#categories tbody").sortable({
+        items: "tr:not(.home)",
+        placeholder: "ui-state-highlight", /*bunu yazmamın sebebi mause üzerine geldiğinde gölgeli olsun diye bu site.css yazılacak */
+        update: function () {
+            let ids = $("table#categories tbody").sortable("serialize");
+            let url = "/admin/category/reorder";
+
+            $.post(url, ids, function () { })
+        }
+    });
+    </script>
+}
+

@@ -12,13 +12,15 @@
                 List of Pages
             </div>
             <div class="card-body">
-                <table  class="table-responsive-sm table sorting" id="pages">
+                <table class="table-responsive-sm table sorting" id="pages">
                     <thead>
                         @* Aşagıda home olan table olanın sortlanmasını istemiyoruz o yüzden tr'ye home class'ını eklerim *@
                         <tr class="home">
                             <th>Title</th>
                             <th>Slug</th>
                             <th>Status</th>
+                            <th>Sorting</th>
+                            <th>CreateDate</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -29,6 +31,8 @@
                                 <td>@item.Title</td>
                                 <td>@item.Slug</td>
                                 <td>@item.Status</td>
+                                <td>@item.Sorting</td>
+                                <td>@item.CreateDate</td>
                                 <td>
                                     <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">Details</a>|
                                     <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">Edit</a>|
@@ -50,3 +54,19 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+    <script>
+    $("table#pages tbody").sortable({
+        items: "tr:not(.home)",
+        placeholder: "ui-state-highlight", /*bunu yazmamın sebebi mause üzerine geldiğinde gölgeli olsun diye bu site.css yazılacak */
+        update: function () {
+            let ids = $("table#pages tbody").sortable("serialize");
+            let url = "/admin/page/reorder";
+
+            $.post(url, ids, function () { })
+        }
+    });
+    </script>
+}

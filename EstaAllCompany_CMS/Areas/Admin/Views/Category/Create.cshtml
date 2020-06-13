@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+@model Category
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Create a Category</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+
+                        @*<-->asp-validation-summary="ModelOnly" kısmı modelimde belirttiğim uyarıları göstermesi için belirtilir.</-->*@
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                            @*<-->span asp-validation-for="Title" Title için yanlış formatta girilirse uyarıyı göstereceği alan min lentgh 2 gibi</-->*@
+                        </div> 
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label"></label>
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group float-right">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Index" class="btn btn-dark btn-block">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<-->Section kısmını eklememizin sebebi scriptlerin gelmesini istediğim için _ValidationScriptsPartial'ı çağırıyoruz.Daha ben tek tusa basıp beklersem hemen bana uyarı verir.Görüldüğü gibi partial'ıda Async yani ASencron olarak çağırıyoruz.</-->*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} @*//Partial asenkron olarak gelecek.Bu sayede asenkron olarak sayfaların çalışmasını sağlamış olucaz.Aksi taktirde aynı anda 2 tane model doldurmak zorunda kalıp bu defade view model yazmak zorunda kalırız.*@
+    <script>
+    CKEDITOR.replace("Description");
+    </script>
+}
+
