@@ -15,7 +15,7 @@ $(function () {
     if ($("div.alert.notification").length) {
         setTimeout(() => {
             $("div.alert.notification").fadeOut();
-        }, 1000);
+        }, 2000);
         //Bu function sayesinde notificationın devreyi girip 2000 saniye sonra yok olsun diye dinamik bir şekilde oluşturmuş oluyorum.ÖNEMLİ div.alert.notification= Bu kısımı _NotificationPartildaki gibi div'in içindeki Alert classındaki notification metodunu al diyoruz.
         //Bu js'de zaten _Layoutumda mevcut geldim direk dinamik olsun diye buraya yazdım.
     }
