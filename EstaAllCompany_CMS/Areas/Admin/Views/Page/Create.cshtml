@@ -27,7 +27,7 @@
 
                             <div class="form-group">
                                 <label asp-for="Content" class="control-label"></label>
-                                <input asp-for="Content"  class="form-control" />
+                                <textarea asp-for="Content"  class="form-control" ></textarea>
                                 <span asp-validation-for="Content" class="text-danger"></span>
                             </div>
 
@@ -49,5 +49,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} @*//Partial asenkron olarak gelecek.Bu sayede asenkron olarak sayfaların çalışmasını sağlamış olucaz.Aksi taktirde aynı anda 2 tane model doldurmak zorunda kalıp bu defade view model yazmak zorunda kalırız.*@ 
+<script>
+    CKEDITOR.replace("Content");
+</script>
 }
 

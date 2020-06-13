@@ -24,7 +24,7 @@ namespace EstaAllCompany_CMS.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()  //Asencron programlama kullanımı ile listeleme işlemi
         {
-            return View(await _context.Pages.OrderBy(x => x.Sorting).ToListAsync());
+            return View(await _context.Pages.Where(x=>x.Status==Status.Active).OrderBy(x => x.Sorting).ToListAsync());
         }
 
         public async Task <IActionResult>Details(int id)//Listedki veriyi tıkladığımda taşıyacağı id 
@@ -131,6 +131,21 @@ namespace EstaAllCompany_CMS.Areas.Admin.Controllers
             }
 
             return RedirectToAction("Index");//Sonuç başarılı da olsa başarısızda olsa Index kısmına geri dön diyoruz
+        }
+
+        public async Task <IActionResult> ReOrder(int[] id)//İçine parametre olarak int tipinde[] dizi alacak
+        {
+            int count = 1; //Say ve başlangıç değerini "1" al diyorum
+            foreach (var pageId in id)//foreachle bizim page'gnderdiğim ve adı id olan dizinin içerisnde pageId olarak dolşıyorum
+            {
+                Page page = await _context.Pages.FindAsync(pageId);//Sürükleyeceğim o andaki row Id'den 
+                page.Sorting = count;//Bu andan itibaren saymaya başla
+                _context.Update(page);//EntityFramework'ün Update metodu ile update et
+                await _context.SaveChangesAsync();//Değişikleri kaydet
+                count++;//sonrada geçtiği row'dan itibaren say birer birer diyoruz
+            }
+
+            return Ok(); //Status code.
         }
     }
 }
