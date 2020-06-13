@@ -15,7 +15,7 @@ namespace EstaAllCompany_CMS.Infrastructure.Seeding
         {
             using (var context = new ProjectContext(serviceProvider.GetRequiredService<DbContextOptions<ProjectContext>>()))
             {
-                if (context.Categories.Any()) 
+                if (context.Categories.Any() && context.Pages.Any()) 
                 {
                     return;
                 }
@@ -32,7 +32,38 @@ namespace EstaAllCompany_CMS.Infrastructure.Seeding
                         Description = "Everything about  with Lip Makeupt",
                     }
                 );
-               
+
+                context.Pages.AddRange(
+                   new Page //Instance alıp Page Sınıfından verileri ekliyoruz.
+                    {
+                       Title = "Home",
+                       Slug = "home",
+                       Content = "home Page",
+                       Sorting = 0,
+                   },
+                   new Page
+                   {
+                       Title = "About Us",
+                       Slug = "about-us",
+                       Content = "about us page",
+                       Sorting = 100,
+                   },
+                   new Page
+                   {
+                       Title = "Services",
+                       Slug = "services",
+                       Content = "services page",
+                       Sorting = 100,
+                   },
+                   new Page
+                   {
+                       Title = "Contact",
+                       Slug = "contact",
+                       Content = "contact page",
+                       Sorting = 100,
+                   }
+                   );
+
 
                 context.SaveChanges();
             }
