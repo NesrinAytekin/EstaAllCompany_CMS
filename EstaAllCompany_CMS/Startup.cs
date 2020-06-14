@@ -47,6 +47,13 @@ namespace EstaAllCompany_CMS
 
             app.UseEndpoints(endpoints =>
             {
+
+                //Biz burada page gizlemek istediðimizde slug yada page dememiz yeterli sayfanýn açýlmasý için
+                endpoints.MapControllerRoute(
+                    "page",//page controller
+                    "{slug?}", //Default olarak slug alabilir ve Boþ geçilebiliceðinden yanýna (?) koyduk 
+                    defaults: new { controller = "Page", action = "Page" });
+
                 //Bu kýsmý eklemek zorundayýz aksi halde rotasýný bulup istenilen URL'i bulamaz.
                 endpoints.MapControllerRoute(
                     name: "areas",
